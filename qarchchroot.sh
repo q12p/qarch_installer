@@ -12,13 +12,13 @@ echo "$white"
 
 
 echo "$yellow Insert username:$white"
-username=$1
+read username
 
 echo "$yellow Insert password for $username:$white"
-password=$2
+read password
 
 echo "$yellow Insert password for root:$white"
-root_password=$3
+read root_password
 
 
 
@@ -142,21 +142,34 @@ echo 'y' | pacman -Sy grub efibootmgr
 
 grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=Arch
 grub-mkconfig -o /boot/grub/grub.cfg
+#sed -i 's/username/'$username'/g' /etc/default/grub############################################
 
 
 
 
 
 # Custom personalisation
-#echo 'y' | pacman -Sy $(cat qpackages.txt)
-echo 'y' | pacman -Sy bspwm sxhkd rofi alacritty
+echo 'y' | pacman -Sy $(cat qpackages.txt)
 
-mkdir /home/$username/.config /home/$username/.config/bspwm /home/$username/.config/sxhkd
-cp /usr/share/doc/bspwm/examples/bspwmrc /home/$username/.config/bspwm/
-cp /usr/share/doc/bspwm/examples/sxhkdrc /home/$username/.config/sxhkd/
-sed -i 's/urxvt/alacritty/g' /home/$username/.config/sxhkd/sxhkdrc
-sed -i 's/dmenu_run/rofi -show run/g' /home/$username/.config/sxhkd/sxhkdrc
-sed -i 's/@space/F2/g' /home/$username/.config/sxhkd/sxhkdrc
-sed -i 's/12/1/g' /home/$username/.config/bspwm/bspwmrc
+#mkdir /home/$username/.config /home/$username/.config/bspwm /home/$username/.config/sxhkd
+#cp /usr/share/doc/bspwm/examples/bspwmrc /home/$username/.config/bspwm/
+#cp /usr/share/doc/bspwm/examples/sxhkdrc /home/$username/.config/sxhkd/
+#sed -i 's/urxvt/alacritty/g' /home/$username/.config/sxhkd/sxhkdrc
+#sed -i 's/dmenu_run/rofi -show run/g' /home/$username/.config/sxhkd/sxhkdrc
+#sed -i 's/@space/F2/g' /home/$username/.config/sxhkd/sxhkdrc
+#sed -i 's/12/1/g' /home/$username/.config/bspwm/bspwmrc
+
+cp files/.config /home/$username/ -r
 chmod +x /home/$username/.config/sxhkd/sxhkdrc
 chmod +x /home/$username/.config/bspwm/bspwmrc
+chmod +x /home/$username/.config/bspwm/bin/bspterm
+
+systemctl enable sddm.service
+
+####################################################################
+cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/
+
+name_interface=$(ip link | grep enp1* | awk '{print $2;}' | rev | cut -c 2- | rev)
+sed -i "s/Interface=*/$name_interface/g" /etc/netctl/ethernet-dhcp
+systemctl enable netctl.service
+netctl enable ethernet-dhcp

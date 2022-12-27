@@ -18,6 +18,7 @@ bash-completion
 zip
 unzip
 git
+base-devel
 
 firefox
 qbittorrent
