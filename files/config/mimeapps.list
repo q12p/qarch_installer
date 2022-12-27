@@ -1,0 +1,5 @@
+[Default Applications]
+text/plain=Alacritty.desktop
+
+[Added Associations]
+text/plain=Alacritty.desktop;
