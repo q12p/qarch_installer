@@ -9,7 +9,7 @@
 white='\e[37m'
 red='\e[31m'
 yellow='\e[33m'
-echo "$white"
+echo -e "$white"
 
 
 
