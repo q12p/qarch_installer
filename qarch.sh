@@ -2,6 +2,7 @@
 #
 # ATTENTION! This script assumes that the user has already connected to the internet.
 
+set -e
 
 # Variables
 #
