@@ -164,9 +164,9 @@ echo 'y' | pacman -U /files/aur_packages/sddm-sugar-dark-1.2-1-any.pkg.tar.zst
 
 sed -i 's/Current=/Current=sugar-dark/g' /usr/lib/sddm/sddm.conf.d/default.conf
 cp /home/$username/.config/wallpaper.png /usr/share/sddm/themes/sugar-dark/
-cp /files/aur_packages/theme.conf /usr/share/ssdm/themes/sugar-dark/
+cp /files/aur_packages/theme.conf /usr/share/sddm/themes/sugar-dark/
 
-feh --bg-scale .config/wallpaper.png
+echo -e "#!/bin/sh\nfeh --no-fehbg --bg-scale 'home/q12/.config/wallpaper.png'"
 
 
 systemctl enable sddm.service
