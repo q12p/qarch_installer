@@ -154,8 +154,8 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # Custom personalisation
 echo -e "\n3\n1\n1\ny" | pacman -Sy $(cat qpackages.txt)
 
-mv files/config /files/.config
-cp files/.config /home/$username/ -r
+mv /files/config /files/.config
+cp /files/.config /home/$username/ -r
 chmod +x /home/$username/.config/sxhkd/sxhkdrc
 chmod +x /home/$username/.config/bspwm/bspwmrc
 chmod +x /home/$username/.config/bspwm/bin/bspterm
