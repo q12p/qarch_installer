@@ -8,16 +8,16 @@ white='\e[37m'
 red='\e[31m'
 yellow='\e[33m'
 
-echo "$white"
+echo -e "$white"
 
 
-echo "$yellow Insert username:$white"
+echo -e "$yellow Insert username:$white"
 read username
 
-echo "$yellow Insert password for $username:$white"
+echo -e "$yellow Insert password for $username:$white"
 read password
 
-echo "$yellow Insert password for root:$white"
+echo -e "$yellow Insert password for root:$white"
 read root_password
 
 
@@ -26,7 +26,7 @@ read root_password
 
 # CHOICE FOR NETWORK SOFTWARE
 
-echo "$red \n\n\nDepending on the hardware where this installation is taking place, a different network management software will be installed.\n\n$yellow\"Netctl\"$red for a station set to connect to one main internet connection.\n\n$yellow\"Network Manager\"$red for a station meant to be used with multiple connections (usually the tipical choice for laptops).$white"
+echo -e "$red \n\n\nDepending on the hardware where this installation is taking place, a different network management software will be installed.\n\n$yellow\"Netctl\"$red for a station set to connect to one main internet connection.\n\n$yellow\"Network Manager\"$red for a station meant to be used with multiple connections (usually the tipical choice for laptops).$white"
 
 
 net_software_choice=0
@@ -86,6 +86,7 @@ hwclock --systohc
 echo -e "$yellow Setting localization$white"
 
 sed '/en_US.UTF/s/^#//' -i /etc/locale.gen
+sed '/fr_CH.UTF/s/^#//' -i /etc/locale.gen
 locale-gen
 
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
@@ -109,7 +110,7 @@ sed -i 's/username/'$username'/g' /etc/hosts
 
 
 # 3.6	Initramfs
-echo -e "$yellow Recreating initramfs image$white"
+echo -e "$yellow Recreating initramfs image.$white"
 
 mkinitcpio -P
 
@@ -127,7 +128,7 @@ echo -e "$root_password\n$root_password" | passwd
 
 
 # POST-INSTALLATION
-echo -e "$yellow Initiating post-intallation$white"
+echo -e "$yellow Initiating post-intallation.$white"
 
 #Adding main user
 useradd -G wheel,audio,video -m $username
@@ -149,20 +150,16 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 
 # Custom personalisation
-echo 'y' | pacman -Sy $(cat qpackages.txt)
+echo -e "3\n1\n1\ny" | pacman -Sy $(cat qpackages.txt)
 
-#mkdir /home/$username/.config /home/$username/.config/bspwm /home/$username/.config/sxhkd
-#cp /usr/share/doc/bspwm/examples/bspwmrc /home/$username/.config/bspwm/
-#cp /usr/share/doc/bspwm/examples/sxhkdrc /home/$username/.config/sxhkd/
-#sed -i 's/urxvt/alacritty/g' /home/$username/.config/sxhkd/sxhkdrc
-#sed -i 's/dmenu_run/rofi -show run/g' /home/$username/.config/sxhkd/sxhkdrc
-#sed -i 's/@space/F2/g' /home/$username/.config/sxhkd/sxhkdrc
-#sed -i 's/12/1/g' /home/$username/.config/bspwm/bspwmrc
 
 cp files/.config /home/$username/ -r
 chmod +x /home/$username/.config/sxhkd/sxhkdrc
 chmod +x /home/$username/.config/bspwm/bspwmrc
 chmod +x /home/$username/.config/bspwm/bin/bspterm
+
+feh --bg-scale .config/wallpaper.png
+
 
 systemctl enable sddm.service
 
@@ -173,3 +170,5 @@ name_interface=$(ip link | grep enp1* | awk '{print $2;}' | rev | cut -c 2- | re
 sed -i "s/Interface=*/$name_interface/g" /etc/netctl/ethernet-dhcp
 systemctl enable netctl.service
 netctl enable ethernet-dhcp
+
+localectl set-x11-keymap ch , fr
