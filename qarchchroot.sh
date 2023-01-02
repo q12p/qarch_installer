@@ -170,11 +170,15 @@ feh --bg-scale .config/wallpaper.png
 
 systemctl enable sddm.service
 
-cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/
+if [ $net_software_choice == 1 ]
+then
+	cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/
 
-name_interface=$(ip link | grep enp1* | awk '{print $2;}' | rev | cut -c 2- | rev)
-sed -i "s/Interface=eth0/Interface=$name_interface/g" /etc/netctl/ethernet-dhcp
-netctl enable ethernet-dhcp
-systemctl enable netctl.service
+	name_interface=$(ip link | grep enp1* | awk '{print $2;}' | rev | cut -c 2- | rev)
+	sed -i "s/Interface=eth0/Interface=$name_interface/g" /etc/netctl/ethernet-dhcp
+	netctl enable ethernet-dhcp
+	systemctl enable netctl.service
+fi
+
 
 localectl set-x11-keymap ch , fr
