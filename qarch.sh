@@ -94,4 +94,4 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 
 # 3.2 Chroot
-echo -e "\n\n\n\n$yellow Ready to chroot with \"arch-chroot \mnt\".\n\n$red Ensure that no errors were made during the process before proceeding with chrooting.$white"
+echo -e "\n\n\n\n$yellow Ready to chroot with \"arch-chroot /mnt\".\n\n$red Ensure that no errors were made during the process before proceeding with chrooting.$white"
