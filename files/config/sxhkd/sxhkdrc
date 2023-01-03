@@ -12,7 +12,7 @@ super + shift + Return
 #super
 #	.config/rofi/launcher
 super + F2
-	rofi -show run
+	rofi -show run -show-icons -theme /home/$USER/.config/rofi/rofitheme.rasi
 
 # make sxhkd reload its configuration files:
 super + Escape
