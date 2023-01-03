@@ -94,4 +94,19 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 
 # 3.2 Chroot
-echo -e "\n\n\n\n$yellow Ready to chroot with \"arch-chroot /mnt\".\n\n$red Ensure that no errors were made during the process before proceeding with chrooting.$white"
+#echo -e "\n\n\n\n$yellow Ready to chroot with \"arch-chroot /mnt\".\n\n$red Ensure that no errors were made during the process before proceeding with chrooting.$white"
+
+
+
+
+
+cp files /mnt -r
+cp qarchchroot.sh /mnt
+cp qhosts /mnt
+cp qpackages.txt /mnt
+
+
+
+
+
+arch-chroot /mnt sh qarchchroot.sh
