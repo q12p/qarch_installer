@@ -160,7 +160,7 @@ rm /mnt/qarchchroot.sh /mnt/qhosts /mnt/qpackages.txt #/mnt/files
 
 # Finishing installation and shutting down
 clear
-echo -e "$yellow Installation succesful.\n\nShutting down in 5 seconds$white"
+echo -e "$yellow Installation successful.\n\nShutting down in 5 seconds$white"
 echo "5"
 sleep 1
 echo "4"
@@ -170,4 +170,5 @@ sleep 1
 echo "2"
 sleep 1
 echo "1"
+sleep 1
 shutdown now
