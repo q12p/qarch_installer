@@ -170,10 +170,9 @@ cp /files/theme.conf /usr/share/sddm/themes/sugar-dark/
 rm -rf /usr/share/fonts/*
 cp /files/fonts/* /usr/share/fonts/ -r
 
-su $username
-echo -e '#!/bin/sh\nfeh --no-fehbg --bg-scale '\''home/'"$username"'/.config/wallpaper.png'\' > /home/$username/.fehbg
-chmod +x /home/$username/.fehbg
-su root
+#echo -e '#!/bin/sh\nfeh --no-fehbg --bg-scale '\''home/'"$username"'/.config/wallpaper.png'\' > /home/$username/.fehbg
+#chmod +x /home/$username/.fehbg
+
 
 systemctl enable sddm.service
 
