@@ -21,6 +21,48 @@ read password
 echo -e "$yellow Insert password for root:$white"
 read root_password
 
+# CHOICE FOR NETWORK SOFTWARE
+
+echo -e "$red \n\n\nDepending on the hardware where this installation is taking place, a different network management software will be installed.\n\n$yellow\"Netctl\"$red for a station set to connect to one main internet connection.\n\n$yellow\"Network Manager\"$red for a station meant to be used with multiple connections (usually the tipical choice for laptops).$white"
+
+
+net_software_choice=0
+
+while [[ $net_software_choice -ne 1 && $net_software_choice -ne 2 ]]
+do
+	echo -e "$yellow Install netctl (1) or Network Manager (2):$white"
+	read net_software_choice
+done
+
+
+
+
+
+# USER CHOOSES NETCTL
+if [ $net_software_choice == 1 ]
+then
+	echo -e "netctl\ndhcpcd\ndialog\nwpa_supplicant" >> qpackages.txt
+
+
+
+
+# USER CHOOSES NETWORK MANAGER
+else
+	graphical_interface=q
+
+	while [[ $graphical_interface -ne 'y' && $graphical_interface -ne 'n' ]]
+	do
+		echo -e "$yellow \nWould you like to install a graphical user interface for Network Manager? (Yes=y No=n)$white"
+		read graphical_interface
+	done
+
+	echo networkmanager >> qpackages.txt
+
+	if [ $graphical_interface == 'y' ]
+	then
+		echo nm-connection-editor >> qpackages.txt
+	fi
+fi
 
 
 
@@ -118,4 +160,4 @@ cp qpackages.txt /mnt
 
 
 
-arch-chroot /mnt sh qarchchroot.sh $username $root $root_password
+arch-chroot /mnt sh qarchchroot.sh $username $root $root_password $net_software_choice
