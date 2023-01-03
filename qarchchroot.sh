@@ -123,7 +123,7 @@ cp /files/fonts/* /usr/share/fonts/ -r
 
 #echo -e '#!/bin/sh\nfeh --no-fehbg --bg-scale '\''home/'"$username"'/.config/wallpaper.png'\' > /home/$username/.fehbg
 #chmod +x /home/$username/.fehbg
-
+cp /files/.fehbg /home/$username/
 
 systemctl enable sddm.service
 
