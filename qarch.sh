@@ -12,6 +12,15 @@ red='\e[31m'
 yellow='\e[33m'
 echo -e "$white"
 
+echo -e "$yellow Insert username:$white"
+read username
+
+echo -e "$yellow Insert password for $username:$white"
+read password
+
+echo -e "$yellow Insert password for root:$white"
+read root_password
+
 
 
 
@@ -109,4 +118,4 @@ cp qpackages.txt /mnt
 
 
 
-arch-chroot /mnt sh qarchchroot.sh
+arch-chroot /mnt sh qarchchroot.sh $username $root $root_password

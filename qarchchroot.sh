@@ -12,14 +12,11 @@ yellow='\e[33m'
 echo -e "$white"
 
 
-echo -e "$yellow Insert username:$white"
-read username
+username=$1
 
-echo -e "$yellow Insert password for $username:$white"
-read password
+password=$2
 
-echo -e "$yellow Insert password for root:$white"
-read root_password
+root_password=$3
 
 
 
@@ -154,7 +151,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # Custom personalisation
 echo -e "\n3\n1\n1\ny" | pacman -Sy $(cat qpackages.txt)
 
-mv /files/config /files/.config
 cp /files/.config /home/$username/ -r
 chmod +x /home/$username/.config/sxhkd/sxhkdrc
 chmod +x /home/$username/.config/bspwm/bspwmrc
