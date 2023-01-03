@@ -160,4 +160,4 @@ cp qpackages.txt /mnt
 
 
 
-arch-chroot /mnt sh qarchchroot.sh $username $root $root_password $net_software_choice
+sh mnt/qarchchroot.sh $username $root $root_password $net_software_choice
