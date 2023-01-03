@@ -161,10 +161,11 @@ chmod +x /home/$username/.config/bspwm/bspwmrc
 chmod +x /home/$username/.config/bspwm/bin/bspterm
 
 echo 'y' | pacman -U /files/aur_packages/sddm-sugar-dark-1.2-1-any.pkg.tar.zst
+echo 'y' | pacman -U /files/aur_packages/nerd-fonts-jetbrains-mono-2.2.2-2-any.pkg.tar.zst
 
 sed -i 's/Current=/Current=sugar-dark/g' /usr/lib/sddm/sddm.conf.d/default.conf
 cp /home/$username/.config/wallpaper.png /usr/share/sddm/themes/sugar-dark/
-cp /files/aur_packages/theme.conf /usr/share/sddm/themes/sugar-dark/
+cp /files/theme.conf /usr/share/sddm/themes/sugar-dark/
 
 rm -rf /usr/share/fonts/*
 cp /files/fonts/* /usr/share/fonts/ -r
