@@ -145,19 +145,29 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 
 # 3.2 Chroot
-#echo -e "\n\n\n\n$yellow Ready to chroot with \"arch-chroot /mnt\".\n\n$red Ensure that no errors were made during the process before proceeding with chrooting.$white"
+echo -e "\n\n\n\n$yellow Ready to chroot with \"arch-chroot /mnt\".$white"
 
-
-
-
-
+# Copying files to /mnt and executing script in new system
 cp files /mnt -r
 cp qarchchroot.sh /mnt
 cp qhosts /mnt
 cp qpackages.txt /mnt
 
+arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_software_choice
 
+# Cleaning remaning files on system
+rm /mnt/qarchchroot.sh /mnt/qhosts /mnt/qpackages.txt #/mnt/files
 
-
-
-sh /mnt/qarchchroot.sh $username $root $root_password $net_software_choice
+# Finishing installation and shutting down
+clear
+echo -e "$yellow Installation succesful.\n\nShutting down in 5 seconds$white"
+echo "5"
+sleep 1
+echo "4"
+sleep 1
+echo "3"
+sleep 1
+echo "2"
+sleep 1
+echo "1"
+shutdown now
