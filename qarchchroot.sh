@@ -104,7 +104,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 
 # Custom personalisation
-echo -e "\n3\n1\n1\ny" | pacman -Sy $(cat qpackages.txt)
+echo 'y' | pacman -Sy - < qpackages.txt
 
 cp /files/.config /home/$username/ -r
 chmod +x /home/$username/.config/sxhkd/sxhkdrc
@@ -123,7 +123,7 @@ cp /files/fonts/* /usr/share/fonts/ -r
 
 #echo -e '#!/bin/sh\nfeh --no-fehbg --bg-scale '\''home/'"$username"'/.config/wallpaper.png'\' > /home/$username/.fehbg
 #chmod +x /home/$username/.fehbg
-cp /files/.fehbg /home/$username/
+#cp /files/.fehbg /home/$username/
 
 systemctl enable sddm.service
 
