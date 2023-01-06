@@ -55,7 +55,7 @@ echo -e "$yellow Creating network configuration$white"
 
 echo $username > /etc/hostname
 
-cp qhosts /etc/hosts
+echo -e "127.0.0.1	localhost\n::1		localhost\n127.0.1.1	$username.localdomain		$username" >> /etc/hosts
 sed -i 's/username/'$username'/g' /etc/hosts
 
 
