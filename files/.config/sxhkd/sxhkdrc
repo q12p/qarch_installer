@@ -1,65 +1,75 @@
-#
-# wm independent hotkeys
-#
-
-
-# terminal emulator
-super + Return
-	.config/bspwm/bin/bspterm
-super + shift + Return
-	.config/bspwm/bin/bspterm --float
-# program launcher
-#super
-#	.config/rofi/launcher
-super + F2
-	rofi -show run -show-icons -theme /home/$USER/.config/rofi/rofitheme.rasi
-
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
-####################################################EDIT firefox
-super + shift + q
-	firefox
+	
+# Quit/Restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}
+	
+	
+	
+	
+	
+#
+# Terminal emulator (Alacritty)
+#
+super + Return
+	.config/bspwm/bin/bspterm
+	
+super + shift + Return
+	.config/bspwm/bin/bspterm --float
+	
+	
 
-super + shift + f
-	thunar
-super + shift + space
-	betterlockscreen --lock blur --off 15
+#
+# Program launcher (Rofi). Xcape script to use Rofi with Super key.
+#
+alt + F2
+	sh /home/$USER/.config/rofi/xcapescript.sh
+	
+
+
+#
+# Apps
+#
+super + shift + {f,q,v}
+	bspc {thunar,firefox,alacritty -e nvim}
+
+
+
+
+
 #
 # bspwm hotkeys
 #
 
-# quit/restart bspwm
-super + alt + {q,r}
-	bspc {quit,wm -r}
-
-# close and kill
+# Close and kill
 super + {_,shift + }c
 	bspc node -{c,k}
 
-# Toggle beetwen floating & tiled
+# Toggle beetwen floating and tiled
 super + space
     bspc node -t "~"{floating,tiled}
 
-# send the newest marked node to the newest preselected node
-super + y
-	bspc node newest.marked.local -n newest.!automatic.local
-
-# swap the current node and the biggest window
+# swap the current node and the biggest window in the same workspace
 super + g
-	bspc node -s biggest.window
+	bspc node -s biggest.local
+
+
 
 #
-# state/flags
+# State/flags
 #
 
-# set the window state
-super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+# Window state
+super + {s,f}
+	bspc node -t {floating,~fullscreen}
 
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
+
+
 
 #
 # focus/swap
@@ -130,3 +140,9 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+	
+	
+	
+# Lock Screen (Betterlockscreen)
+super + shift + space
+	betterlockscreen --lock blur --off 15
