@@ -30,3 +30,4 @@ for i in ${floating[@]}; do
 ~/.fehbg &
 picom -f &
 polybar qbar &
+xcape -e 'Super_L=Alt_L|F2'
