@@ -12,6 +12,7 @@ pulseaudio
 pavucontrol
 neovim
 picom
+xcape
 
 make
 bash-completion
