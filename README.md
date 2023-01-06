@@ -3,18 +3,19 @@ It's my arch. :)
 
 TO-DO:
 
-- xcape
 - Set script to erase data on disk and create partition table regardless of where this script is being executed and add message that asks user if they want to continue executing the script regardless of it erasing the main drive data.
 - Ask if a swap partition is desired.
 - Ask whether to install grub and os-prober or systemd as bootloader and set systemd as default option.
 - Ask if the user desires to install virtualbox packages to enable clipboard, in case they desire to install qarch in virtual machine.
-- Customize keybinding in sxhkd file.
 - Customize Thunar theme
 - ??? Eject install drive from script before shutting down. Possible???
 - Ask whether to install certain apps:
   - steam, minecraft, mangohud and heroic
   - ntfs-3g
   - obs-studio
+- Rofi system menu with password
+- Rofi for notification
+- Rofi menu for networks
 - Customize polybar and put in order config.ini adding moudules file.
 - Finish networkmanager configuration.
 - Ask if user desires to install yay.
