@@ -3,6 +3,7 @@ It's my arch. :)
 
 TO-DO:
 
+- xcape
 - Set script to erase data on disk and create partition table regardless of where this script is being executed and add message that asks user if they want to continue executing the script regardless of it erasing the main drive data.
 - Ask if a swap partition is desired.
 - Ask whether to install grub and os-prober or systemd as bootloader and set systemd as default option.
