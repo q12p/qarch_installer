@@ -32,8 +32,11 @@ alt + F2
 #
 # Apps
 #
-super + shift + {f,q,v}
-	bspc {thunar,firefox,alacritty -e nvim}
+super + shift + {f,q}
+	{thunar,firefox}
+
+super + v
+	alacritty -e nvim
 
 
 
