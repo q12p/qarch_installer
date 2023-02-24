@@ -88,11 +88,11 @@ useradd -G wheel,audio,video -m $username
 echo -e "$password\n$password" | passwd $username
 
 #Adding sudo command
-echo 'y' | pacman -Sy sudo
+pacman -Sy sudo --noconfirm
 sed '/wheel ALL=(ALL:ALL) ALL/s/^#//' -i /etc/sudoers
 
 #Installing grub and efibootmgr
-echo 'y' | pacman -Sy grub efibootmgr
+pacman -Sy grub efibootmgr --noconfirm
 
 grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=Arch
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
@@ -104,7 +104,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 
 # Custom personalisation
-echo 'y' | pacman -Sy - < qpackages.txt
+pacman -Sy - < qpackages.txt --noconfirm
 
 cp /files/.config /home/$username/ -r
 chmod +x /home/$username/.config/sxhkd/sxhkdrc
@@ -112,8 +112,8 @@ chmod +x /home/$username/.config/bspwm/bspwmrc
 chmod +x /home/$username/.config/bspwm/bin/bspterm
 
 
-echo 'y' | pacman -U /files/aur_packages/sddm-sugar-candy-git-r53.2b72ef6-1-any.pkg.tar.zst
-echo 'y' | pacman -U /files/aur_packages/nerd-fonts-jetbrains-mono-2.2.2-2-any.pkg.tar.zst
+pacman -U /files/aur_packages/sddm-sugar-candy-git-r53.2b72ef6-1-any.pkg.tar.zst --noconfirm
+pacman -U /files/aur_packages/nerd-fonts-jetbrains-mono-2.2.2-2-any.pkg.tar.zst --noconfirm
 
 sed -i 's/Current=/Current=sugar-candy/g' /usr/lib/sddm/sddm.conf.d/default.conf
 #cp /home/$username/.config/wallpaper.png /usr/share/sddm/themes/sugar-dark/

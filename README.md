@@ -26,4 +26,3 @@ TO-DO:
 
 PROBLEMS:
 - Package with nerd fonts doesn't seem to be properly installed after installation. Perhaps it has to be installed by the main user?
-- See if transparency works on hardware or if it is broken regardless of it being used in VM or not.

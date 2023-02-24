@@ -150,13 +150,12 @@ echo -e "\n\n\n\n$yellow Ready to chroot with \"arch-chroot /mnt\".$white"
 # Copying files to /mnt and executing script in new system
 cp files /mnt -r
 cp qarchchroot.sh /mnt
-cp qhosts /mnt
 cp qpackages.txt /mnt
 
 arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_software_choice
 
 # Cleaning remaning files on system
-rm /mnt/qarchchroot.sh /mnt/qhosts /mnt/qpackages.txt #/mnt/files
+rm /mnt/qarchchroot.sh /mnt/qpackages.txt #/mnt/files
 
 # Finishing installation and shutting down
 clear
