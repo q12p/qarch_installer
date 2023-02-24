@@ -9,7 +9,6 @@ feh
 thunar
 thunar-archive-plugin
 thunar-media-tags-plugin
-thunar-shares-plugin
 thunar-volman
 pulseaudio
 pavucontrol
@@ -31,7 +30,6 @@ qalculate-gtk
 piper
 btop
 cronie
-coreshot
 
 ttf-jetbrains-mono-nerd
 ttf-liberation

@@ -18,6 +18,8 @@ super + Return
 	
 super + shift + Return
 	.config/bspwm/bin/bspterm --float
+super + shift + t
+	.config/bspwm/bin/bspterm --full
 	
 	
 

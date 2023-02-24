@@ -14,8 +14,14 @@ bspc config focus_follows_pointer true
 bspc config normal_border_color '#5b5b5b'
 bspc config focused_border_color '#ffffff'
 
-#bspc rule -a Gimp desktop='^8' state=floating follow=on
-#bspc rule -a Chromium desktop='^2'
+bspc rule -a Gimp state=floating follow=on
+bspc rule -a Qalculate-gtk \
+	state=floating sticky=off follow=off focus=on \
+	rectangle=640x360
+bspc rule -a '*:*:Picture-in-Picture' locked=on state=floating follow=off sticky=on rectangle=426x240+0+838 focus=off
+bspc rule -a '*:*:Sign in to Minecraft' locked=on state=floating follow=off sticky=off rectangle=1000x621+150+838 focus=off
+bspc rule -a Steam desktop='^5' follow=off focus=off
+bspc rule -a "Heroic Games Launcher" desktop='^5' follow=off focus=off
 #bspc rule -a mplayer2 state=floating
 #bspc rule -a Kupfer.py focus=on
 #bspc rule -a Screenkey manage=off
@@ -26,8 +32,9 @@ Viewnior feh Nm-connection-editor)
 for i in ${floating[@]}; do
    bspc rule -a $i state=floating follow=on focus=on; done
 
-
 ~/.fehbg &
 picom -f &
 polybar qbar &
-xcape -e 'Super_L=Alt_L|F2'
+killall xcape
+xcape -e 'Super_L=Alt_L|F2' &
+dunst &
