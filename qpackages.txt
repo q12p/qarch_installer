@@ -1,15 +1,15 @@
 bspwm
 sxhkd
 sddm
-
 rofi
 alacritty
-polybar
 feh
+
 thunar
 thunar-archive-plugin
 thunar-media-tags-plugin
 thunar-volman
+
 pulseaudio
 pavucontrol
 neovim
