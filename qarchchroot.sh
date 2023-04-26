@@ -92,13 +92,13 @@ pacman -Sy sudo --noconfirm
 sed '/wheel ALL=(ALL:ALL) ALL/s/^#//' -i /etc/sudoers
 
 #Installing grub and efibootmgr
-pacman -Sy grub efibootmgr --noconfirm
+pacman -Sy efibootmgr --noconfirm
 
-grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=Arch
-sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
-sed -i 's/GRUB_GFXMODE=auto/GRUB_GFXMODE=1920x1080/g' /etc/default/grub
+#grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=Arch
+#sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
+#sed -i 's/GRUB_GFXMODE=auto/GRUB_GFXMODE=1920x1080/g' /etc/default/grub
 
-grub-mkconfig -o /boot/grub/grub.cfg
+#grub-mkconfig -o /boot/grub/grub.cfg
 
 
 
@@ -107,20 +107,17 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -Sy - < qpackages.txt --noconfirm
 
 cp /files/.config /home/$username/ -r
-chmod +x /home/$username/.config/sxhkd/sxhkdrc
-chmod +x /home/$username/.config/bspwm/bspwmrc
 chmod +x /home/$username/.config/bspwm/bin/bspterm
 
 
 pacman -U /files/aur_packages/sddm-sugar-candy-git-r53.2b72ef6-1-any.pkg.tar.zst --noconfirm
-pacman -U /files/aur_packages/nerd-fonts-jetbrains-mono-2.2.2-2-any.pkg.tar.zst --noconfirm
 
 sed -i 's/Current=/Current=sugar-candy/g' /usr/lib/sddm/sddm.conf.d/default.conf
 #cp /home/$username/.config/wallpaper.png /usr/share/sddm/themes/sugar-dark/
 cp /files/sugar-candy /usr/share/sddm/themes/ -rf
 
 #rm -rf /usr/share/fonts/*
-cp /files/fonts/* /usr/share/fonts/ -r
+#cp /files/fonts/* /usr/share/fonts/ -r
 
 #echo -e '#!/bin/sh\nfeh --no-fehbg --bg-scale '\''home/'"$username"'/.config/wallpaper.png'\' > /home/$username/.fehbg
 #chmod +x /home/$username/.fehbg
@@ -132,7 +129,7 @@ if [ $net_software_choice == 1 ]
 then
 	cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/
 
-	name_interface=$(ip link | grep enp1* | awk '{print $2;}' | rev | cut -c 2- | rev)
+	name_interface=$(ip link | grep enp1* | awk '{print $2;}' | sed 's/:/ /g')
 	sed -i "s/Interface=eth0/Interface=$name_interface/g" /etc/netctl/ethernet-dhcp
 	netctl enable ethernet-dhcp
 	systemctl enable netctl.service

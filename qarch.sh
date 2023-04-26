@@ -41,7 +41,7 @@ done
 # USER CHOOSES NETCTL
 if [ $net_software_choice == 1 ]
 then
-	echo -e "netctl\ndhcpcd\ndialog\nwpa_supplicant" >> qpackages.txt
+	echo -e "netctl\ndhcpcd" >> qpackages.txt
 
 
 
@@ -56,7 +56,7 @@ else
 		read graphical_interface
 	done
 
-	echo networkmanager >> qpackages.txt
+	echo networkmanager\ndhcpcd\ndialog\nwpa_supplicant >> qpackages.txt
 
 	if [ $graphical_interface == 'y' ]
 	then
@@ -86,7 +86,7 @@ timedatectl set-ntp true
 
 # 1.9	Partition the disk############################################# Change fdisk command to variable
 echo -e "$yellow Partitioning the disks.$white"
-echo -e "n\np\n1\n\n+1024M\nn\np\n2\n\n\nt\n1\nEF\nw" | fdisk /dev/sda
+echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n\nt\n1\nEF\nw" | fdisk /dev/sda
 
 
 
