@@ -113,8 +113,11 @@ chmod +x /home/$username/.config/bspwm/bin/bspterm
 pacman -U /files/aur_packages/sddm-sugar-candy-git-r53.2b72ef6-1-any.pkg.tar.zst --noconfirm
 
 sed -i 's/Current=/Current=sugar-candy/g' /usr/lib/sddm/sddm.conf.d/default.conf
+
+cp /file/.fehbg /home/$username/
+chmod +x /home/$username/.fehbg
 #cp /home/$username/.config/wallpaper.png /usr/share/sddm/themes/sugar-dark/
-cp /files/sugar-candy /usr/share/sddm/themes/ -rf
+#cp /files/sugar-candy /usr/share/sddm/themes/ -rf
 
 #rm -rf /usr/share/fonts/*
 #cp /files/fonts/* /usr/share/fonts/ -r
