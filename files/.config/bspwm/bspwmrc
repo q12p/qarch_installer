@@ -25,7 +25,7 @@ bspc rule -a "Heroic Games Launcher" desktop='^5' follow=off focus=off
 bspc rule -a qBittorrent -o desktop='^4' state=tiled
 
 ## Always Floating Apps
-declare -a floating=(alacritty-float Pcmanfm Thunar Onboard Yad 'Firefox:Places' \
+declare -a floating=(Thunar Onboard Yad 'Firefox:Places' \
 Viewnior feh Nm-connection-editor)
 for i in ${floating[@]}; do
    bspc rule -a $i state=floating follow=on focus=on; done
@@ -33,6 +33,6 @@ for i in ${floating[@]}; do
 ~/.fehbg &
 picom -f &
 killall xcape
-xcape -e 'Super_L=Alt_L|F2' &
+xcape -e 'Super_L=Alt_L|F2'
 dunst &
 qbittorrent &
