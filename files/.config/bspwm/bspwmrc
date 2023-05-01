@@ -19,12 +19,10 @@ bspc rule -a Qalculate-gtk \
 	state=floating sticky=off follow=off focus=on \
 	rectangle=640x360
 bspc rule -a '*:*:Picture-in-Picture' locked=on state=floating follow=off sticky=on rectangle=426x240+0+838 focus=off
-bspc rule -a '*:*:Sign in to Minecraft' locked=on state=floating follow=off sticky=off rectangle=1000x621+150+838 focus=off
+#bspc rule -a '*:*:Sign in to Minecraft' locked=on state=floating follow=off sticky=off rectangle=1000x621+150+838 focus=off
 bspc rule -a Steam desktop='^5' follow=off focus=off
 bspc rule -a "Heroic Games Launcher" desktop='^5' follow=off focus=off
-#bspc rule -a mplayer2 state=floating
-#bspc rule -a Kupfer.py focus=on
-#bspc rule -a Screenkey manage=off
+bspc rule -a qBittorrent -o desktop='^4' state=tiled
 
 ## Always Floating Apps
 declare -a floating=(alacritty-float Pcmanfm Thunar Onboard Yad 'Firefox:Places' \
@@ -34,7 +32,7 @@ for i in ${floating[@]}; do
 
 ~/.fehbg &
 picom -f &
-polybar qbar &
 killall xcape
 xcape -e 'Super_L=Alt_L|F2' &
 dunst &
+qbittorrent &
