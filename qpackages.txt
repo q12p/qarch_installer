@@ -4,6 +4,7 @@ sddm
 rofi
 alacritty
 feh
+dunst
 
 thunar
 thunar-archive-plugin
