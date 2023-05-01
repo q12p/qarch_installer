@@ -9,6 +9,7 @@ thunar
 thunar-archive-plugin
 thunar-media-tags-plugin
 thunar-volman
+gvfs
 
 pulseaudio
 pavucontrol
@@ -23,6 +24,10 @@ zip
 unzip
 git
 base-devel
+gnome-disk-utility
+exfat-utils
+
+python-pip
 
 firefox
 qbittorrent
