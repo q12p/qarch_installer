@@ -111,6 +111,7 @@ chmod +x /home/$username/.config/bspwm/bin/bspterm
 
 
 pacman -U /files/aur_packages/sddm-sugar-candy-git-r53.2b72ef6-1-any.pkg.tar.zst --noconfirm
+pacman -U /files/aur_packages/betterlockscreen-4.0.4-2-any.pkg.tar.zst
 
 sed -i 's/Current=/Current=sugar-candy/g' /usr/lib/sddm/sddm.conf.d/default.conf
 
