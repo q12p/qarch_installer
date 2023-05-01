@@ -20,6 +20,8 @@ root_password=$3
 
 net_software_choice=$4
 
+root_partition=$5
+
 
 
 
@@ -93,6 +95,9 @@ sed '/wheel ALL=(ALL:ALL) ALL/s/^#//' -i /etc/sudoers
 
 #Installing grub and efibootmgr
 pacman -Sy efibootmgr --noconfirm
+
+# EFISTUB
+#efibootmgr --create --disk $5 --part 2 --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=block_device_identifier rw initrd=\initramfs-linux.img'
 
 #grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=Arch
 #sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub

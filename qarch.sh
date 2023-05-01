@@ -98,6 +98,7 @@ echo -e "$yellow Formating the partitions.$white"
 mkfs.ext4 /dev/sda2
 mkfs.fat -F 32 /dev/sda1
 
+root_partition="/dev/sda2"
 
 
 
@@ -152,7 +153,7 @@ cp files /mnt -r
 cp qarchchroot.sh /mnt
 cp qpackages.txt /mnt
 
-arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_software_choice
+arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_software_choice $root_partition
 
 # Cleaning remaning files on system
 rm /mnt/qarchchroot.sh /mnt/qpackages.txt #/mnt/files
