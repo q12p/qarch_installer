@@ -41,3 +41,4 @@ ttf-jetbrains-mono-nerd
 ttf-liberation
 ttf-roboto
 noto-fonts-cjk
+clamav
