@@ -27,7 +27,10 @@ super + shift + t
 # Program launcher (Rofi). Xcape script to use Rofi with Super key.
 #
 alt + F2
-	sh /home/$USER/.config/rofi/xcapescript.sh
+	sh /home/$USER/.config/rofi/appmenu/xcapescript.sh
+
+super + x
+	sh /home/$USER/.config/rofi/powermenu/powermenu.sh
 	
 
 
@@ -151,3 +154,28 @@ super + {Left,Down,Up,Right}
 # Lock Screen (Betterlockscreen)
 super + shift + space
 	betterlockscreen --lock blur --off 15
+
+# Dunst
+
+# Volume
+XF86AudioLowerVolume
+	sh /home/q12/.config/sxhkd/volume.sh down
+
+XF86AudioRaiseVolume
+	sh /home/q12/.config/sxhkd/volume.sh up
+
+XF86AudioMute
+	sh /home/q12/.config/sxhkd/mute.sh
+
+# Notifications
+
+# Memory
+super + shift + m
+	sh /home/q12/.config/dunst_scripts/memory.sh
+
+# Local IP
+super + shift + i
+	sh /home/q12/.config/dunst_scripts/local_ip.sh
+# Time
+super + shift + t
+	sh /home/q12/.config/dunst_scripts/time.sh
