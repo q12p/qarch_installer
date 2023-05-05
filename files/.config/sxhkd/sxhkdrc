@@ -155,6 +155,10 @@ super + {Left,Down,Up,Right}
 super + shift + space
 	betterlockscreen --lock blur --off 15
 
+# Calculate
+XF86Calculator
+	qalculate-gtk
+
 # Dunst
 
 # Volume
