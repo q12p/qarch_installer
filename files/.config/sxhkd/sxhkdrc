@@ -159,6 +159,14 @@ super + shift + space
 XF86Calculator
 	qalculate-gtk
 
+# HomePage
+XF86HomePage
+	firefox https://github.com/q12p
+
+# Mail
+XF86Mail
+	firefox https://protonmail.com
+
 # Dunst
 
 # Volume
@@ -170,6 +178,16 @@ XF86AudioRaiseVolume
 
 XF86AudioMute
 	sh /home/q12/.config/sxhkd/mute.sh
+
+XF86AudioPause
+	sh /home/q12/.config/sxhkd/playerctl.sh
+XF86AudioPlay
+	sh /home/q12/.config/sxhkd/playerctl.sh
+
+XF86AudioPrev
+	playerctl previous
+XF86AudioNext
+	playerctl next
 
 # Notifications
 
