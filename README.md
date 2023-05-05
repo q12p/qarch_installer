@@ -5,6 +5,7 @@ TO-DO:
 
 - Set FUNCTIONS
 - Set script to erase data on disk and create partition table regardless of where this script is being executed and add message that asks user if they want to continue executing the script regardless of it erasing the main drive data.
+- Add images to dunst notifications
 - Ask:
     - If a swap partition is desired.
     - Whether to install grub or efistub as bootloader and set efistub as default option.
