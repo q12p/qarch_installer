@@ -43,3 +43,4 @@ ttf-roboto
 noto-fonts-cjk
 clamav
 papirus-icon-theme
+playerctl
