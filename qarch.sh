@@ -85,8 +85,11 @@ timedatectl set-ntp true
 
 
 # 1.9	Partition the disk############################################# Change fdisk command to variable
+lsblk
+echo -e "$yellow\n Select disk to proceed with installation$white"
+read disk
 echo -e "$yellow Partitioning the disks.$white"
-echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n\nt\n1\nEF\nw" | fdisk /dev/sda
+echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n\nt\n1\nEF\nw" | fdisk $disk
 
 
 
