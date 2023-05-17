@@ -97,7 +97,7 @@ sed '/wheel ALL=(ALL:ALL) ALL/s/^#//' -i /etc/sudoers
 pacman -Sy efibootmgr --noconfirm
 
 # EFISTUB
-efibootmgr --create --disk $5 --part 1 --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=$5 rw initrd=\initramfs-linux.img'
+efibootmgr --create --disk $5 --part 1 --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=$root_partition rw initrd=\initramfs-linux.img'
 
 #grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=Arch
 #sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub

@@ -85,23 +85,26 @@ timedatectl set-ntp true
 
 
 # 1.9	Partition the disk############################################# Change fdisk command to variable
-lsblk
-echo -e "$yellow\n Select disk to proceed with installation$white"
+lsblk -p
+echo -e "$yellow\n Select disk to proceed with installation. (Write the entire path Ex: /dev/sda).$white"
 read disk
+
+
 echo -e "$yellow Partitioning the disks.$white"
 echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n\nt\n1\nEF\nw" | fdisk $disk
 
 
+boot_partition=$(sudo fdisk -l /dev/nvme0n1 | tail -n 2 | head -n 1 | awk '{ print $1 }')
+root_partition=$(sudo fdisk -l /dev/nvme0n1 | head -n 1 | awk '{ print $1 }')
 
 
 
 # 1.10	Format the partitions
 echo -e "$yellow Formating the partitions.$white"
 
-mkfs.ext4 /dev/sda2
-mkfs.fat -F 32 /dev/sda1
+mkfs.fat -F 32 $boot_partition
+mkfs.ext4 $root_partition
 
-root_partition="/dev/sda2"
 
 
 
