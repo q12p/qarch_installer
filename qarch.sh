@@ -94,8 +94,8 @@ echo -e "$yellow Partitioning the disks.$white"
 echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n\nt\n1\nEF\nw" | fdisk $disk
 
 
-boot_partition=$(sudo fdisk -l /dev/nvme0n1 | tail -n 2 | head -n 1 | awk '{ print $1 }')
-root_partition=$(sudo fdisk -l /dev/nvme0n1 | head -n 1 | awk '{ print $1 }')
+boot_partition=$(sudo fdisk -l $disk | tail -n 2 | head -n 1 | awk '{ print $1 }')
+root_partition=$(sudo fdisk -l $disk | head -n 1 | awk '{ print $1 }')
 
 
 
@@ -112,8 +112,8 @@ mkfs.ext4 $root_partition
 # 1.11	Mounting the file system
 echo -e "$yellow Mounting the file system.$white"
 
-mount /dev/sda2 /mnt
-mount --mkdir /dev/sda1 /mnt/boot
+mount $root_partition /mnt
+mount --mkdir $boot_partition /mnt/boot
 
 
 
