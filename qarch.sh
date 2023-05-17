@@ -159,7 +159,7 @@ cp files /mnt -r
 cp qarchchroot.sh /mnt
 cp qpackages.txt /mnt
 
-arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_software_choice $root_partition
+arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_software_choice $disk $root_partition
 
 # Cleaning remaning files on system
 rm /mnt/qarchchroot.sh /mnt/qpackages.txt #/mnt/files
