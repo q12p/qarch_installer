@@ -11,7 +11,6 @@ yellow='\e[33m'
 
 echo -e "$white"
 
-
 username=$1
 
 password=$2
@@ -23,7 +22,6 @@ net_software_choice=$4
 disk=$5
 
 root_partition=$6
-
 
 
 
