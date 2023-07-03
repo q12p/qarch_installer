@@ -7,24 +7,25 @@ set -e
 # Variables
 #
 # Colours
-white='\e[37m'
-red='\e[31m'
-yellow='\e[33m'
+white=$(tput sgr0)
+red=$(tput setaf 9)
+yellow=$(tput setaf 3)
+
 echo -e "$white"
 
-echo -e "$yellow Insert username:$white"
-read username
 
-echo -e "$yellow Insert password for $username:$white"
-read password
 
-echo -e "$yellow Insert password for root:$white"
-read root_password
+
+read -p "$yellow Insert username:$white " username
+
+read -p "$yellow Insert password for $username:$white " password
+
+read -p "$yellow Insert password for root:$white " root_password
+
 
 # CHOICE FOR NETWORK SOFTWARE
 
 echo -e "$red \n\n\nDepending on the hardware where this installation is taking place, a different network management software will be installed.\n\n$yellow\"Netctl\"$red for a station set to connect to one main internet connection.\n\n$yellow\"Network Manager\"$red for a station meant to be used with multiple connections (usually the tipical choice for laptops).$white"
-
 
 net_software_choice=0
 
@@ -35,15 +36,10 @@ do
 done
 
 
-
-
-
 # USER CHOOSES NETCTL
 if [ $net_software_choice == 1 ]
 then
 	echo -e "netctl\ndhcpcd" >> qpackages.txt
-
-
 
 
 # USER CHOOSES NETWORK MANAGER
@@ -52,19 +48,16 @@ else
 
 	while [[ $graphical_interface -ne 'y' && $graphical_interface -ne 'n' ]]
 	do
-		echo -e "$yellow \nWould you like to install a graphical user interface for Network Manager? (Yes=y No=n)$white"
-		read graphical_interface
+		read -p "$yellow \nWould you like to install a graphical user interface for Network Manager? (Yes=y No=n)$white " graphical_interface
 	done
 
-	echo networkmanager\ndhcpcd\ndialog\nwpa_supplicant >> qpackages.txt
+	echo -e "networkmanager\ndhcpcd\ndialog\nwpa_supplicant" >> qpackages.txt
 
 	if [ $graphical_interface == 'y' ]
 	then
 		echo nm-connection-editor >> qpackages.txt
 	fi
 fi
-
-
 
 
 # ██╗       ██████╗ ██████╗ ███████╗    ██╗███╗   ██╗███████╗████████╗ █████╗ ██╗     ██╗      █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
@@ -81,22 +74,15 @@ timedatectl set-timezone Europe/Zurich
 timedatectl set-ntp true
 
 
-
-
-
 # 1.9	Partition the disk############################################# Change fdisk command to variable
 lsblk -p
-echo -e "$yellow\n Select disk to proceed with installation. (Write the entire path Ex: /dev/sda).$white"
-read disk
-
+read -p "$yellow\n Select disk to proceed with installation. (Write the entire path Ex: /dev/sda).$white " disk
 
 echo -e "$yellow Partitioning the disks.$white"
 echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n\nt\n1\nEF\nw" | fdisk $disk
 
-
 boot_partition=$(fdisk -l $disk | tail -n 2 | head -n 1 | awk '{ print $1 }')
 root_partition=$(fdisk -l $disk | tail -n 1 | awk '{ print $1 }')
-
 
 
 # 1.10	Format the partitions
@@ -106,17 +92,11 @@ mkfs.fat -F 32 $boot_partition
 mkfs.ext4 $root_partition
 
 
-
-
-
 # 1.11	Mounting the file system
 echo -e "$yellow Mounting the file system.$white"
 
 mount $root_partition /mnt
 mount --mkdir $boot_partition /mnt/boot
-
-
-
 
 
 #██████╗        ██╗███╗   ██╗███████╗████████╗ █████╗ ██╗     ██╗      █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
@@ -127,12 +107,9 @@ mount --mkdir $boot_partition /mnt/boot
 #╚══════╝╚═╝    ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
 
 # 2.2	Install essential packages
-echo -e "$yellow Installing essential packages.$white"
+echo -e "$yellow Installing essential packages (base linux linux-firmware).$white"
 
 pacstrap -K /mnt base linux linux-firmware
-
-
-
 
 
 #██████╗         ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ ██╗   ██╗██████╗ ███████╗    ████████╗██╗  ██╗███████╗    ███████╗██╗   ██╗███████╗████████╗███████╗███╗   ███╗
@@ -146,9 +123,6 @@ pacstrap -K /mnt base linux linux-firmware
 echo -e "$yellow Generating fstab file.$white"
 
 genfstab -U /mnt >> /mnt/etc/fstab
-
-
-
 
 
 # 3.2 Chroot
