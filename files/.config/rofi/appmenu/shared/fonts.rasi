@@ -3,5 +3,5 @@
 /* Text Font */
 
 * {
-    font: "BlexMono Nerd 12";
+    font: "JetBrainsMonoNL Nerd Font 12";
 }
