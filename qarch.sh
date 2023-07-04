@@ -1,7 +1,6 @@
 #!/bin/bash
-#
-# ATTENTION! This script assumes that the user has already connected to the internet.
 
+# ATTENTION! This script assumes that the user has already connected to the internet.
 set -e
 
 # Variables
@@ -14,8 +13,6 @@ yellow=$(tput setaf 3)
 echo -e "$white"
 
 
-
-
 read -p "$yellow Insert username:$white " username
 
 read -p "$yellow Insert password for $username:$white " password
@@ -24,7 +21,6 @@ read -p "$yellow Insert password for root:$white " root_password
 
 
 # CHOICE FOR NETWORK SOFTWARE
-
 echo -e "$red \n\n\nDepending on the hardware where this installation is taking place, a different network management software will be installed.\n\n$yellow\"Netctl\"$red for a station set to connect to one main internet connection.\n\n$yellow\"Network Manager\"$red for a station meant to be used with multiple connections (usually the tipical choice for laptops).$white"
 
 net_software_choice=0
@@ -37,7 +33,7 @@ done
 
 
 # USER CHOOSES NETCTL
-if [ $net_software_choice == 1 ]
+if [ $net_software_choice -eq 1 ]
 then
 	echo -e "netctl\ndhcpcd" >> qpackages.txt
 
