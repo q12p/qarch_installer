@@ -136,6 +136,9 @@ echo -e "$yellow Enabling login manager sddm.$white"
 
 systemctl enable sddm.service
 
+chown $username:$username /home/$username/.config -R
+chown $username:$username /home/$username/.fehbg
+
 
 # Network configuration
 if [ $net_software_choice == 1 ]
