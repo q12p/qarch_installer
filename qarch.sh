@@ -169,7 +169,7 @@ cp qpackages.txt /mnt
 arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_software_choice $disk $root_partition $swap_space $swap_partition $efi
 
 # Cleaning remaning files on system
-rm /mnt/qarchchroot.sh /mnt/qpackages.txt /mnt/files
+rm /mnt/qarchchroot.sh /mnt/qpackages.txt /mnt/files -rf
 
 # Finishing installation and shutting down
 clear
