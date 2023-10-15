@@ -172,6 +172,7 @@ arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_softw
 rm /mnt/qarchchroot.sh /mnt/qpackages.txt /mnt/files -rf
 
 # Finishing installation and shutting down
+umount -a
 clear
 echo -e "$yellow Installation successful.\n\nShutting down in 5 seconds$white"
 echo "5"
