@@ -81,25 +81,31 @@ echo -e "$password\n$password" | passwd $username
 pacman -Sy sudo --noconfirm
 sed '/wheel ALL=(ALL:ALL) ALL/s/^#//' -i /etc/sudoers
 
-# Installing grub and efibootmgr
-pacman -Sy efibootmgr --noconfirm
-
-# EFISTUB
-efibootmgr --create --disk $disk --part 1 --label "Arch Linux" --loader /vmlinuz-linux --unicode "root=$root_partition rw initrd=\initramfs-linux.img"
-
-# GRUB
-#grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=Arch
-#sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
-#sed -i 's/GRUB_GFXMODE=auto/GRUB_GFXMODE=1920x1080/g' /etc/default/grub
-
-#grub-mkconfig -o /boot/grub/grub.cfg
+# Installing efibootmgr (efistub) or grub (legacy)
+if [ $efi == 'y' ]
+then # EFISTUB
+  pacman -S efibootmgr --noconfirm
+  
+  if [ $swap_space == 'n' ]
+  then
+    efibootmgr --create --disk $disk --part 1 --label "Arch Linux" --loader /vmlinuz-linux --unicode "root=$root_partition rw initrd=\initramfs-linux.img"
+  else
+    efibootmgr --create --disk $disk --part 1 --label "Arch Linux" --loader /vmlinuz-linux --unicode "root=$root_partition resume=$swap_partition rw initrd=\initramfs-linux.img"
+  fi
+else # LEGACY
+  grub-install $disk
+  
+  sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
+  sed -i 's/GRUB_GFXMODE=auto/GRUB_GFXMODE=1920x1080/g' /etc/default/grub
+  grub-mkconfig -o /boot/grub/grub.cfg
+fi
 
 
 # Custom personalisation
-pacman -Sy - < qpackages.txt --noconfirm
-
 cp /files/.config /home/$username/ -r
-chmod +x /home/$username/.config/bspwm/bin/bspterm
+
+pacman -S - < qpackages.txt --noconfirm
+
 
 
 # AUR packages
@@ -111,9 +117,7 @@ sed -i 's/Current=/Current=sugar-candy/g' /usr/lib/sddm/sddm.conf.d/default.conf
 
 # Wallpaper
 cp /files/.fehbg /home/$username/
-# TESTING chmod +x /home/$username/.fehbg
-#cp /home/$username/.config/wallpaper.png /usr/share/sddm/themes/sugar-dark/
-#cp /files/sugar-candy /usr/share/sddm/themes/ -rf
+cp /home/$username/.config/wallpaper.png /usr/share/sddm/themes/sugar-candy/
 
 
 # Login manager
@@ -124,7 +128,7 @@ systemctl enable sddm.service
 
 # Network configuration
 if [ $net_software_choice == 1 ]
-then
+then # Netctl
 	echo -e "$yellow Enabling ethernet connection with netctl.$white"
 
 	cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/
@@ -133,6 +137,8 @@ then
 	sed -i "s/Interface=eth0/Interface=$name_interface/g" /etc/netctl/ethernet-dhcp
 	netctl enable ethernet-dhcp
 	systemctl enable netctl.service
+else
+  systemctl enable NetworkManager.service
 fi
 
 

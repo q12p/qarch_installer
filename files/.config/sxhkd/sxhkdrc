@@ -15,10 +15,9 @@ super + alt + {q,r}
 #
 super + Return
 	.config/bspwm/bin/bspterm
-	
 super + shift + Return
 	.config/bspwm/bin/bspterm --float
-super + shift + t
+super + shift + r
 	.config/bspwm/bin/bspterm --full
 	
 	
@@ -28,7 +27,6 @@ super + shift + t
 #
 alt + F2
 	sh /home/$USER/.config/rofi/appmenu/xcapescript.sh
-
 super + x
 	sh /home/$USER/.config/rofi/powermenu/powermenu.sh
 	
@@ -39,6 +37,9 @@ super + x
 #
 super + shift + {f,q}
 	{thunar,firefox}
+
+super + q
+	torbrowser-launcher
 
 super + v
 	alacritty -e nvim
@@ -155,11 +156,11 @@ super + {Left,Down,Up,Right}
 super + shift + space
 	betterlockscreen --lock blur --off 15
 
-# Calculate
+# Calculator
 XF86Calculator
 	qalculate-gtk
 
-# HomePage
+# Home Page
 XF86HomePage
 	firefox https://github.com/q12p
 
@@ -178,6 +179,9 @@ XF86AudioRaiseVolume
 
 XF86AudioMute
 	sh /home/q12/.config/sxhkd/mute.sh
+
+XF86AudioMicMute
+  pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 XF86AudioPause
 	sh /home/q12/.config/sxhkd/playerctl.sh
@@ -201,3 +205,12 @@ super + shift + i
 # Time
 super + shift + t
 	sh /home/q12/.config/dunst_scripts/time.sh
+
+
+# SHORTCUTS
+
+super + F9
+	bluetoothctl connect 6C:47:60:92:C8:87
+
+super + F10
+	bash /home/q12/.config/sxhkd/mouse.sh

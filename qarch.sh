@@ -37,17 +37,15 @@ if [ $net_software_choice -eq 1 ]
 then
 	echo -e "netctl\ndhcpcd" >> qpackages.txt
 
-
 # USER CHOOSES NETWORK MANAGER
 else
 	graphical_interface=q
-
 	while [[ $graphical_interface -ne 'y' && $graphical_interface -ne 'n' ]]
 	do
 		read -p "$yellow \nWould you like to install a graphical user interface for Network Manager? (Yes=y No=n)$white " graphical_interface
 	done
 
-	echo -e "networkmanager\ndhcpcd\ndialog\nwpa_supplicant" >> qpackages.txt
+	echo -e "networkmanager\ndhcpcd\nwpa_supplicant" >> qpackages.txt
 
 	if [ $graphical_interface == 'y' ]
 	then
@@ -72,19 +70,57 @@ timedatectl set-ntp true
 
 # 1.9	Partition the disk############################################# Change fdisk command to variable
 lsblk -p
-read -p "$yellow\n Select disk to proceed with installation. (Write the entire path Ex: /dev/sda).$white " disk
+read -p "$yellow\n Select disk to proceed with installation. (Write the entire path Ex: /dev/sda): $white " disk
+	
+swap_space=q
+while [[ $swap_space -ne 'y' && $swap_space -ne 'n' ]]
+do
+	read -p "$yellow \nWould you like to set a swap space? (Yes=y No=n)$white " graphical_interface
+done
 
 echo -e "$yellow Partitioning the disks.$white"
-echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n\nt\n1\nEF\nw" | fdisk $disk
 
-boot_partition=$(fdisk -l $disk | tail -n 2 | head -n 1 | awk '{ print $1 }')
-root_partition=$(fdisk -l $disk | tail -n 1 | awk '{ print $1 }')
+if [ $swap_space == 'n' ]
+then
+  echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n\nt\n1\nEF\nw" | fdisk $disk
+
+  boot_partition=$(fdisk -l $disk | tail -n 2 | head -n 1 | awk '{ print $1 }')
+  root_partition=$(fdisk -l $disk | tail -n 1 | awk '{ print $1 }')
+
+  swap_partition="n/a"
+else
+  echo -e "$yellow Total amont of ram (in megabytes) in this machine:\n$(free --mega)\n$white"
+  read -p "$yellow\n Select amount of swap space (in megabytes) : " swap_amount
+
+  echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n+$swap_amount\nn\np\n3\n\n\nt\n1\nEF\nt\n2\n82\nw" | fdisk $disk
+
+  boot_partition=$(fdisk -l $disk | tail -n 3 | head -n 1 | awk '{ print $1 }')
+  swap_partition=$(fdisk -l $disk | tail -n 2 | head -n 1 | awk '{ print $1 }')
+  root_partition=$(fdisk -l $disk | tail -n 1 | awk '{ print $1 }')
+  
+  mkswap $swap_partition
+  swapon $swap_partition
+fi
+
+# Adding boot flag in non efi systems
+efi=n
+if [ -d "/sys/firmware/efi/efivars" ]
+then
+  efi=y
+else
+  echo -e "a\n3\nw" | fdisk $disk
+fi
+
+
+
+
 
 
 # 1.10	Format the partitions
 echo -e "$yellow Formating the partitions.$white"
 
 mkfs.fat -F 32 $boot_partition
+# mkswap and swapon already done if created
 mkfs.ext4 $root_partition
 
 
@@ -129,10 +165,10 @@ cp files /mnt -r
 cp qarchchroot.sh /mnt
 cp qpackages.txt /mnt
 
-arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_software_choice $disk $root_partition
+arch-chroot /mnt sh qarchchroot.sh $username $password $root_password $net_software_choice $disk $root_partition $swap_space $swap_partition $efi
 
 # Cleaning remaning files on system
-rm /mnt/qarchchroot.sh /mnt/qpackages.txt #/mnt/files
+rm /mnt/qarchchroot.sh /mnt/qpackages.txt /mnt/files
 
 # Finishing installation and shutting down
 clear

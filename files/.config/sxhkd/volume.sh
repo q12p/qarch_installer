@@ -14,19 +14,41 @@ function get_volume {
 }
 
 function send_notification {
-  icon="/home/q12/.config/status/volume.png"
   volume=$(get_volume)
+  if [ $volume -lt 1 ];then
+	  icon="/usr/share/icons/Papirus-Dark/16x16/panel/audio-off.svg"
+  elif [ $volume -lt 25 ];then
+	  icon="/usr/share/icons/Papirus-Dark/16x16/panel/audio-volume-low.svg"
+  elif [ $volume -lt 50 ];then
+	  icon="/usr/share/icons/Papirus-Dark/16x16/panel/audio-volume-medium.svg"
+  elif [ $volume -lt 75 ];then
+	  icon="/usr/share/icons/Papirus-Dark/16x16/panel/audio-volume-high.svg"
+  elif [ $volume -le 100 ];then
+	  icon="/usr/share/icons/Papirus-Dark/16x16/panel/audio-volume-too-high.svg"
+  elif [ $volume -gt 100 ];then
+	  icon="/usr/share/icons/Papirus-Dark/16x16/panel/audio-volume-too-high.svg"
+  fi
+
   # Make the bar with the special character ─ (it's not dash -)
   # https://en.wikipedia.org/wiki/Box-drawing_character
   bar=$(seq -s "─" 0 $((volume / 5)) | sed 's/[0-9]//g')
   # Send the notification
-  dunstify -i "$icon" -r 5555 -u normal "    $bar"
+  dunstify -i "$icon" -r 5555 -u normal "$volume $bar"
 }
 
 case $1 in
   up)
+    volume_v=$(get_volume)
+    if [ $volume_v -ge 100 ];then
+	    send_notification
+	    exit 1
+    fi
     # increase the backlight by 5%
     pactl set-sink-volume @DEFAULT_SINK@ +5%
+    if [ $((volume_v + 5)) -ge 100 ];then
+	    pactl set-sink-volume @DEFAULT_SINK@ 100%
+	    exit 1
+    fi
     send_notification
     ;;
   down)

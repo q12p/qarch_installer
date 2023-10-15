@@ -22,8 +22,14 @@ TO-DO:
 - Add custom home page to firefox
 
 - Script for maximum hz?
-- Change method to install packages to "pacman -S - < listofpackagestoinstall.txt
 
+- Encryption with luks2 
+
+- Mute mic script with dunst notification
+
+- Add cronjob for time notification 
+
+- Set screen size in dotfiles and grub/xrandr
 PROBLEMS:
 - set betterlockscreen wallpaper without gui in archinstall?
 - Oops, sddm theme needs a fix
