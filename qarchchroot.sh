@@ -21,6 +21,14 @@ disk=$5
 
 root_partition=$6
 
+swap_space=$7
+
+swap_partition=$8
+
+efi=$9
+
+
+
 
 echo -e "$white"
 
@@ -93,6 +101,8 @@ then # EFISTUB
     efibootmgr --create --disk $disk --part 1 --label "Arch Linux" --loader /vmlinuz-linux --unicode "root=$root_partition resume=$swap_partition rw initrd=\initramfs-linux.img"
   fi
 else # LEGACY
+  pacman -S grub --noconfirm
+
   grub-install $disk
   
   sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
