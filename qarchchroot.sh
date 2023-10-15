@@ -124,6 +124,7 @@ pacman -U /files/aur_packages/i3lock-color-2.13.c.4-1-x86_64.pkg.tar.zst --nocon
 pacman -U /files/aur_packages/betterlockscreen-4.0.4-2-any.pkg.tar.zst --noconfirm
 
 sed -i 's/Current=/Current=sugar-candy/g' /usr/lib/sddm/sddm.conf.d/default.conf
+cp /files/theme.conf /usr/share/sddm/themes/sugar-candy/
 
 # Wallpaper
 cp /files/.fehbg /home/$username/
