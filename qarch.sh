@@ -40,9 +40,9 @@ then
 # USER CHOOSES NETWORK MANAGER
 else
 	graphical_interface=q
-	while [[ $graphical_interface -ne 'y' && $graphical_interface -ne 'n' ]]
+	while [[ $graphical_interface != 'y' && $graphical_interface != 'n' ]]
 	do
-		read -p "$yellow \nWould you like to install a graphical user interface for Network Manager? (Yes=y No=n)$white " graphical_interface
+		read -p "$yellow Would you like to install a graphical user interface for Network Manager? (Yes=y No=n):$white " graphical_interface
 	done
 
 	echo -e "networkmanager\ndhcpcd\nwpa_supplicant" >> qpackages.txt
@@ -70,12 +70,12 @@ timedatectl set-ntp true
 
 # 1.9	Partition the disk############################################# Change fdisk command to variable
 lsblk -p
-read -p "$yellow\n Select disk to proceed with installation. (Write the entire path Ex: /dev/sda): $white " disk
+read -p "$yellow Select disk to proceed with installation. (Write the entire path Ex: /dev/sda):$white " disk
 	
-swap_space=q
-while [[ $swap_space -ne 'y' && $swap_space -ne 'n' ]]
+swap_space="none"
+while [[ $swap_space != 'y' && $swap_space != 'n' ]]
 do
-	read -p "$yellow \nWould you like to set a swap space? (Yes=y No=n)$white " graphical_interface
+	read -p "$yellow Would you like to set a swap space? (Yes=y No=n):$white " swap_space
 done
 
 echo -e "$yellow Partitioning the disks.$white"
@@ -87,10 +87,11 @@ then
   boot_partition=$(fdisk -l $disk | tail -n 2 | head -n 1 | awk '{ print $1 }')
   root_partition=$(fdisk -l $disk | tail -n 1 | awk '{ print $1 }')
 
-  swap_partition="n/a"
+  swap_partition="none"
 else
   echo -e "$yellow Total amont of ram (in megabytes) in this machine:\n$(free --mega)\n$white"
-  read -p "$yellow\n Select amount of swap space (in megabytes) : " swap_amount
+  read -p "$yellow Select amount of swap space (in megabytes):$white " swap_amount
+  swap_amount+="M"
 
   echo -e "n\np\n1\n\n+512M\nn\np\n2\n\n+$swap_amount\nn\np\n3\n\n\nt\n1\nEF\nt\n2\n82\nw" | fdisk $disk
 
