@@ -110,6 +110,7 @@ then
   efi=y
 else
   echo -e "a\n3\nw" | fdisk $disk
+  mkfs.ext4 $boot_partition
 fi
 
 
@@ -120,7 +121,10 @@ fi
 # 1.10	Format the partitions
 echo -e "$yellow Formating the partitions.$white"
 
-mkfs.fat -F 32 $boot_partition
+if [ -d "/sys/firmware/efi/efivars" ] # Changer par efi=y
+then
+  mkfs.fat -F 32 $boot_partition
+fi
 # mkswap and swapon already done if created
 mkfs.ext4 $root_partition
 
